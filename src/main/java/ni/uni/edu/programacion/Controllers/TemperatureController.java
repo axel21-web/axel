@@ -7,6 +7,8 @@ package ni.uni.edu.programacion.Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.DefaultComboBoxModel;
 import ni.uni.edu.programacion.views.panels.PnlConversionTemplate;
 
@@ -37,9 +39,20 @@ public class TemperatureController {
                 (ActionEvent e) -> {
                     btnConvActionPerformed(e);
                 });
+        pnlTemperature.getCmbFrom().addItemListener((ItemEvent e) -> {
+            conversionEvent();
+        });
+        
+        pnlTemperature.getCmbTo().addItemListener((ItemEvent e) -> {
+            conversionEvent();
+        });
     }
 
     private void btnConvActionPerformed(ActionEvent e) {
+        conversionEvent();
+    }
+
+    private void conversionEvent() throws NumberFormatException {
         int indexFrom = pnlTemperature.getCmbFrom().getSelectedIndex();
         int indexTo = pnlTemperature.getCmbTo().getSelectedIndex();
         
@@ -48,7 +61,10 @@ public class TemperatureController {
         double result = convertTemperature(indexFrom, indexTo, value);
         pnlTemperature.getLblResult().setText("Resultado: " + result);
     }
-
+    
+    
+    
+    
     private double convertTemperature(int from, int to, double value){
         switch(from){
             case 0:
